@@ -3,14 +3,14 @@ linkTitle: Documentation
 title: Introduction
 ---
 
-👋 Welcome to the demo of the Hugo Blox Documentation template!
+👋 Welcome to the tutorial of the OpenMOA Package!
 
 <!--more-->
 
-This site is a demo of the Hugo Blox Documentation theme. For the full documentation on how to use this template, refer to the [Hugo Blox Documentation](https://docs.hugoblox.com/).
+This site is a tutorial of the OpenMOA Package. For the full documentation on how to use this package, refer to the [Docs](https://docs.hugoblox.com/).
 
 ## Next
 
 {{< cards >}}
-  {{< card url="getting-started" title="Get Started" icon="document-text" subtitle="Create your docs in just 5 minutes!" >}}
+  {{< card url="getting-started" title="Get Started" icon="document-text" subtitle="Use OpenMOA package in just 5 minutes!" >}}
 {{< /cards >}}
