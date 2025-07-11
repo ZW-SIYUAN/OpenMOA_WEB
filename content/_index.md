@@ -14,11 +14,11 @@ sections:
       text: A Python library for Open-Environmental Online Learning Task and Streaming Data Process 🎉
       secondary_action:
         text: Star OpenMOA
-        url: /docs/
+        url: docs/
         icon: star
       primary_action:
         text: Get Started
-        url: /docs/getting-started
+        url: docs/
         icon: rocket-launch
     design:
       spacing:
