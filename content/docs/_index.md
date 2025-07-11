@@ -12,5 +12,5 @@ This site is a tutorial of the OpenMOA Package. For the full documentation on ho
 ## Next
 
 {{< cards >}}
-  {{< card url="getting-started" title="Get Started" icon="document-text" subtitle="Use OpenMOA package in just 5 minutes!" >}}
+  {{< card url="getting-started" title="Quick Start" icon="document-text" subtitle="Use OpenMOA package in just 5 minutes!" >}}
 {{< /cards >}}
