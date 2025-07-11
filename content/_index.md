@@ -1,6 +1,6 @@
 ---
-title: 'Home'
-date: 2023-10-24
+title: 'OpenMOA'
+date: 2025-7-11
 type: landing
 
 design:
