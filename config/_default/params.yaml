@@ -37,8 +37,6 @@ header:
     fixed_to_top: true
     logo:
       text: "OpenMOA"
-      # Logo filename in `assets/media/` folder
-      filename: "logo.svg"
     show_theme_chooser: true
 
 # Site footer
