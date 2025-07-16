@@ -6,8 +6,8 @@ weight: 1
 
 ## Installation
 
-[You may install OpenMOA library by pip]
-[pip install OpenMOA]
+You may install OpenMOA library by pip
+'''pip install OpenMOA'''
 
 ### The First Example
 
