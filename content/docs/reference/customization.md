@@ -1,6 +1,6 @@
 ---
 title: Models
-linkTitle: Customization
+linkTitle: Models
 weight: 1
 ---
 
