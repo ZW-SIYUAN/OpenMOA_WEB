@@ -6,6 +6,6 @@ sidebar:
 ---
 
 {{< cards >}}
-  {{< card url="functions" title="Project Structure" icon="document-duplicate" >}}
-  {{< card url="tasks" title="Configuration" icon="adjustments-vertical" >}}
+  {{< card url="Project Structure" title="Functions" icon="document-duplicate" >}}
+  {{< card url="Configuration" title="Tasks" icon="adjustments-vertical" >}}
 {{< /cards >}}
