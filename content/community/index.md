@@ -11,7 +11,7 @@ If you need more help with OpenMOA, please refer to the relevant documentation, 
 
 ## Contributor
 
-- Zhili Wang : Phd Student, Department of Data Science, School of Computing, Data Sciences & Physics (CDSP), William Mary. 
+- **Zhili Wang** : Phd Student, Department of Data Science, School of Computing, Data Sciences & Physics (CDSP), William Mary. 
 - [Yi He](https://yhe15.people.wm.edu/index.html)
 
 ## News
