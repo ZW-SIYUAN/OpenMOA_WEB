@@ -7,9 +7,9 @@ weight: 1
 ## Installation
 
 You may install OpenMOA library by pip
-{{< highlight go "linenos=inline, hl_lines=3 6-8, style=emacs" >}}
+```yaml
 pip install OpenMOA
-{{< /highlight >}}
+```
 
 
 ### The First Example
