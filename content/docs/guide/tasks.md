@@ -91,42 +91,53 @@ Evaluation indicators:
 ───────────────────────────────
 
 ### Task-4 Online Deep Representation Learning with Evolving Feature Spaces (ODR-EFS)
+
 Given:
-• High-dimensional stream data X_t ∈ ℝ^(n_t×d_t), where d_t varies over time;
-• An optional semi-supervised signal (with weak labels for some samples).
+- High-dimensional stream data X_t ∈ ℝ^(n_t×d_t), where d_t varies over time;
+- An optional semi-supervised signal (with weak labels for some samples).
+
 Goal:
 Joint learning
 (1) Dynamic feature encoder ϕ_t: ℝ^{d_t} → ℝ^k, where k is fixed;
 (2) The online classification/regression head ψ_t ensures that the accuracy of downstream tasks remains unchanged while keeping the model capacity under control.
+
 Constraints:
-• The number of encoder parameters grows sublinearly with d_t;
-• Support catastrophic forgetting inhibition.
+- The number of encoder parameters grows sublinearly with d_t;
+- Support catastrophic forgetting inhibition.
+
 Baseline implementation:
-• DV-RNN (TKDE’23) – Deep Variational Recurrent Neural Network + Scalable Feature Gating;
-• ORFF-Encoder – Single-layer ORFF as a lightweight encoder;
-• MLP-Reinit – Reinitialize the fully connected layer every time the dimension is expanded.
+- DV-RNN (TKDE’23) – Deep Variational Recurrent Neural Network + Scalable Feature Gating;
+- ORFF-Encoder – Single-layer ORFF as a lightweight encoder;
+- MLP-Reinit – Reinitialize the fully connected layer every time the dimension is expanded.
+
 Evaluation indicators:
-• Downstream task Accuracy@t
-• Forgetting Measure = Accuracy@t – max_{τ≤t} Accuracy@τ
-• Feature Expansion Cost (FLOPs)
+- Downstream task Accuracy@t
+- Forgetting Measure = Accuracy@t – max_{τ≤t} Accuracy@τ
+- Feature Expansion Cost (FLOPs)
+
 ───────────────────────────────
+
 ### Task-5 Online Random Feature Forest for Varying Feature Streams (ORFF-VF)
+
 Given:
-• Streaming binary classification data (x_t, y_t) containing only partial feature observations;
-• Tree nodes and random features can be dynamically added or deleted in each round.
+- Streaming binary classification data (x_t, y_t) containing only partial feature observations;
+- Tree nodes and random features can be dynamically added or deleted in each round.
+
 Goal:
 Maintain the error of the ORFF classifier f_t to be ≤ ε, and ensure the model size is ≤ B MB.
 Constraints:
-• Tree depth ≤ 8, minimum sample size for leaf nodes = 10;
-• Single-sample prediction latency ≤ 1 ms.
+- Tree depth ≤ 8, minimum sample size for leaf nodes = 10;
+- Single-sample prediction latency ≤ 1 ms.
+
 Baseline implementation:
-• ORFF-VS (AAAI’22) – Original algorithm + Adaptive feature pool;
-• ORFF-Budget – a pruned version with budget constraints;
-• Hoeffding-Tree – a classic stream decision tree baseline.
+- ORFF-VS (AAAI’22) – Original algorithm + Adaptive feature pool;
+- ORFF-Budget – a pruned version with budget constraints;
+- Hoeffding-Tree – a classic stream decision tree baseline.
+
 Evaluation indicators:
-• Error Rate@t
-• Model Size (MB)
-• Feature Utilization Ratio = Number of active features / Total number of observed features
+- Error Rate@t
+- Model Size (MB)
+- Feature Utilization Ratio = Number of active features / Total number of observed features
 
 ### Task	
 
