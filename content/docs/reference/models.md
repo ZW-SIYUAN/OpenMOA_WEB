@@ -5,12 +5,14 @@ weight: 1
 ---
 
 - IJCAI'25: A Novel Sparse Active Online Learning Framework for Streaming Anomaly Detection in Open Feature Spaces
-- 
+
   [[paper]](https://github.com/ZW-SIYUAN/OpenMOA)    [[code]](https://github.com/ZW-SIYUAN/OpenMOA)
+
 
 - SDM'24: ℓ1,∞ -Mixed Norm Promoted Row Sparsity for Fast Online CUR Decomposition Learning in Varying Feature Spaces
 
   [[paper]](https://github.com/ZW-SIYUAN/OpenMOA)    [[code]](https://github.com/ZW-SIYUAN/OpenMOA)
+
 
 - ICDM'24: Utilitarian Online Learning from Open-World Soft Sensing
 
