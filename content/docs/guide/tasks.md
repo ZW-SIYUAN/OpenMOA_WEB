@@ -34,46 +34,62 @@ Evaluation indicators:
 - AUROC@τ, AUPRC@τ (averaged with time decay)
 - Label Efficiency = AUROC / (#queried labels)
 - Runtime & Peak Memory vs. d_max
+
 ───────────────────────────────
+
 ### Task-2 Online CUR Row-Sparse Matrix Sketching under Varying Dimensions (OCUR-VS)
+
 Given:
-• Stream matrix sequence {M_t ∈ ℝ^(n×d_t)}, where the column dimension d_t varies over time;
-• User-specified compression rank r and row sparsity s (at most s non-zero coefficients per row).
+- Stream matrix sequence {M_t ∈ ℝ^(n×d_t)}, where the column dimension d_t varies over time;
+- User-specified compression rank r and row sparsity s (at most s non-zero coefficients per row).
+
 Goal:
 Outputting the CUR decomposition (C_t, U_t, R_t) in real-time such that
 ∥M_t – C_t U_t R_t∥_F ≤ ε and the rows of R_t satisfy the ℓ1,∞-mixed norm sparsity constraint.
+
 Constraints:
-• The complexity of a single update is O(nnz(M_t) + r^2 d_t);
-• Re-decomposing the historical matrix is not allowed.
+- The complexity of a single update is O(nnz(M_t) + r^2 d_t);
+- Re-decomposing the historical matrix is not allowed.
+
 Baseline implementation:
-• ℓ1,∞-OCUR (SDM’24) – Online Block Coordinate Descent + Row Soft Thresholding;
-• ORFF-CUR – using ORFF as a random column/row sampler;
-• Greedy-CUR – a classic leverage sampling baseline.
+- ℓ1,∞-OCUR (SDM’24) – Online Block Coordinate Descent + Row Soft Thresholding;
+- ORFF-CUR – using ORFF as a random column/row sampler;
+- Greedy-CUR – a classic leverage sampling baseline.
+
 Evaluation indicators:
 Relative reconstruction error = ∥M_t – CUR∥_F / ∥M_t∥_F
-• Achievement rate of row sparsity (≥ 95% of rows satisfying s-sparsity)
-• Update Throughput (rows/ms)
+- Achievement rate of row sparsity (≥ 95% of rows satisfying s-sparsity)
+- Update Throughput (rows/ms)
+
 ───────────────────────────────
+
 ### Task-3 Utilitarian Online Regression from Open-World Soft Sensing (UORS)
+
 Given:
-• Multi-source soft sensor stream X_t = [x_t^(1), …, x_t^(M)], where any source may go offline or be newly added at any time;
-• The target variable y_t arrives with a delay only after the user submits a "utility query";
-• The global utility function U(ŷ, y) is specified online by the user (e.g., energy consumption-accuracy tradeoff).
+- Multi-source soft sensor stream X_t = [x_t^(1), …, x_t^(M)], where any source may go offline or be newly added at any time;
+- The target variable y_t arrives with a delay only after the user submits a "utility query";
+- The global utility function U(ŷ, y) is specified online by the user (e.g., energy consumption-accuracy tradeoff).
+
 Goal:
 Maintain a regressor h_t to ensure cumulative utility
 Maximize ∑_{τ=1}^t U(h_τ(x_τ), y_τ), and ensure the model is robust to heterogeneous sensor drifts.
+
 Constraints:
-• The sensor dimension can be extended to 10^4, but only m_t ≪ M active sources are observed in each round;
-• Support utility function hot swapping without retraining.
+- The sensor dimension can be extended to 10^4, but only m_t ≪ M active sources are observed in each round;
+- Support utility function hot swapping without retraining.
+
 Baseline implementation:
-• UOL-SS (ICDM’24) – Online Mirror Descent + Dynamic Weight Sharing + Sparse Group Lasso;
-• ORFF-Util – a weighted version of Random Feature Forests, supporting online utility re-weighting;
-• Ridge-Restart – Classical Ridge Regression + Periodic Restart Baseline.
+- UOL-SS (ICDM’24) – Online Mirror Descent + Dynamic Weight Sharing + Sparse Group Lasso;
+- ORFF-Util – a weighted version of Random Feature Forests, supporting online utility re-weighting;
+- Ridge-Restart – Classical Ridge Regression + Periodic Restart Baseline.
+
 Evaluation indicators:
-• Cumulative Utility Regret vs. offline oracle
-• Sensor Robustness = AUROC (Fault Detection)
-• Model Update Latency
+- Cumulative Utility Regret vs. offline oracle
+- Sensor Robustness = AUROC (Fault Detection)
+- Model Update Latency
+
 ───────────────────────────────
+
 ### Task-4 Online Deep Representation Learning with Evolving Feature Spaces (ODR-EFS)
 Given:
 • High-dimensional stream data X_t ∈ ℝ^(n_t×d_t), where d_t varies over time;
