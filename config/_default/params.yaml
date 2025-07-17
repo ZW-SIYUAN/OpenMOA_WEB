@@ -14,7 +14,7 @@ marketing:
     site_type: Project
     local_business_type: ''
     org_name: ''
-    description: 'A highly-customizable Hugo documentation theme powered by Hugo Blox website builder.'
+    description: 'A Python library for Open-Environmental Online Learning Task and Streaming Data Process.'
     twitter: ''
   analytics:
     google_analytics: ''
@@ -57,11 +57,11 @@ locale:
 # Site features
 features:
   math:
-    enable: false
+    enable: true
   privacy_pack:
     enable: false
   repository:
-    url: 'https://github.com/HugoBlox/hugo-blox-builder/'
+    url: 'https://github.com/ZW-SIYUAN/OpenMOA/'
     content_dir: 'starters/documentation/content'
     branch: 'main'
   feedback:
