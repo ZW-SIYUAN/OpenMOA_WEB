@@ -18,6 +18,8 @@ from openmoa.model import (
     ORFForest                          # AAAI‘22
 )
 ```
+
+### data loading functions
 1. openmoa.data.load_real()
 
 Function: Load real data stream flow.
@@ -28,7 +30,7 @@ Return: (X, y, feat_info)
 - Feat_info: dict records the timestamp of adding/deleting features.
 - Example:
 ```yaml
-X, y, feat_info = load_real(return_X_y=True)
+X, y, feat_info = load_real(real_dataset)
 ```
 
 2. openmoa.data.load_synthetic()
@@ -41,9 +43,10 @@ Return: (X, y, feat_info)
 - Feat_info: dict records the timestamp of adding/deleting features.
 - Example:
 ```yaml
-X, y, feat_info = load_synthetic(return_X_y=True)
+X, y, feat_info = load_synthetic(stnthetic_dataset)
 ```
 
+### data preprocessing functions
 3. openmoa.preprocess datastream_select()
 
 Function: Select the corresponding data stream feature space to process the original dataset.
@@ -54,12 +57,64 @@ Return: (X, y, feat_info)
 - Feat_info: dict records the timestamp of adding/deleting features.
 - Example:
 ```yaml
-X, y, feat_info = load_synthetic(return_X_y=True)
+X, y, feat_info = datastream_select(dataset)
 ```
 
+4. openmoa.preprocess.open_scaler()
+   
+Function: Flow based robust normalizer (zero mean, unit variance), capable of incremental updates and automatically expanding mean/variance vectors as feature dimensions change.
 
+Source: Universal module, but used as the default preprocessing in the robust experiment of SDM'23 RSOL.
 
+API：
+```yaml
+scaler = open_scaler(with_centering=True, clip_outliers=3.0)
+for batch in stream:
+X_batch = scaler.partial_fit_transform(batch)
+```
 
+5. openmoa.preprocess.elastic_projection()
+
+Function: Elastic sparse mapping, when new features appear, the online learning projection matrix compresses the original high-dimensional space to a fixed k-dimension while retaining anomaly discriminative power.
+
+Source: Elastic Sparse Projection module of IJCAI'25 SOAD.
+
+API：
+```yaml
+proj = elastic_projection(out_dim=128, l1_penalty=1e-3)
+for X_batch in stream:
+Z_batch = proj.partial_fit_transform(X_batch)   # Z ∈ R^{n×128}
+```
+
+### model functions
+6. openmoa.model.SOADLearner()
+
+Function: Sparse active online anomaly detector, implementing IJCAI'25 paper core algorithm:
+- Integrate active selection (uncertainty+diversity+budget);
+- Support incremental sparse weight updates in open feature spaces;
+- Provide interfaces for. partial_fit (X, y=None) and. query (batch-budget).
+
+Core parameters:
+```yaml
+soad = SOADLearner(
+budget_per_round=50, #Up to 50 tags can be queried per round
+l1_reg=1e-4, #Sparse regularization
+Forget_rate=0.01 # Anti concept drift
+)
+```
+
+7. openmoa.model.OCURSketch
+
+Function: Online CUR row and column sketch, targeting SDM'24 ℓ 1, ∞ - MXed Norm CUR algorithm:
+- Row sparsity constraint and variable column dimension;
+- press (rank=r, budget=b) returns (C, U, R) in one step.
+
+Example:
+```yaml
+cur = OCURSketch(rank=50, row_sparsity=5)
+for M_batch in matrix_stream:
+C, U, R = cur.partial_compress(M_batch)
+```
 
 - '''Dataset Loading (openmoa.dataset.*)'''
   - ```stream_loader(), ds = om.dataset.stream_loader('synthetic_open', n_samples=1e6, feature_pace=500) ```	Return a streaming dataset with an infinite iterator based on its name, and specify a feature drift strategy
