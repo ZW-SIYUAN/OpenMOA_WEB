@@ -1,5 +1,5 @@
 ---
-title: Configuration
+title: Tasks
 weight: 2
 ---
 
