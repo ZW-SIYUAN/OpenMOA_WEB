@@ -5,7 +5,9 @@ weight: 1
 
 ## Functions
 - '''Dataset Loading (openmoa.dataset.*)'''
-  - '''stream_loader()'''	Return a streaming dataset with an infinite iterator based on its name, and specify a feature drift strategy	'''ds = om.dataset.stream_loader('synthetic_open', n_samples=1e6, feature_pace=500)'''
+  - {{< highlight go "linenos=inline, hl_lines=3 6-8, style=emacs" >}}
+stream_loader(), ds = om.dataset.stream_loader('synthetic_open', n_samples=1e6, feature_pace=500)
+{{< /highlight >}}	Return a streaming dataset with an infinite iterator based on its name, and specify a feature drift strategy
   - '''file_stream(path, fmt='csv|jsonl|parquet')'''	Read real-time append files from local files or S3/HDFS	'''ds = om.dataset.file_stream('s3://bucket/log.parquet')'''
   - '''kafka_stream(topic, brokers, schema)'''	Directly consume from Kafka topics	'''ds = om.dataset.kafka_stream('iot-sensor', brokers='kafka:9092')'''
   - '''arxiv_open_citation_stream()'''	Open feature drift flow reserved interface for real academic graphs
