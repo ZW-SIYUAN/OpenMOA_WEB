@@ -7,30 +7,35 @@ OpenMOA provides reproducible baselines for the following open-environment strea
 
 ### Task	
 
-# Task-1 Streaming Anomaly Detection under Open Feature Spaces (SOAD)
+### Task-1 Streaming Anomaly Detection under Open Feature Spaces (SOAD)
+
 Given:
-• A stream data S = {Bt}t=1…T arriving in mini-batch form, where the dimension d_t of Bt ∈ ℝ^(n_t×d_t) grows open-endedly over time (allowing new features to suddenly appear and old features to silently disappear);
-• Each sample x_t ∈ Bt is only partially observable upon arrival (open-world partial observability);
-• User-specified "annotation budget" k (up to k labels queried per round).
+- A stream data S = {Bt}t=1…T arriving in mini-batch form, where the dimension d_t of Bt ∈ ℝ^(n_t×d_t) grows open-endedly over time (allowing new features to suddenly appear and old features to silently disappear);
+- Each sample x_t ∈ Bt is only partially observable upon arrival (open-world partial observability);
+- User-specified "annotation budget" k (up to k labels queried per round).
+
 Goal:
 At any given time τ, output a real-time updated anomaly detector f_τ, ensuring it
 (1) Maximize the Area Under the Receiver Operating Characteristic Curve (AUROC) under the condition of using only ≤ k active labels;
 (2) When expanding/contracting in the feature space, the model can continue to update without restarting.
+
 Constraints:
-• Single-round inference latency ≤ 10 ms;
-• The memory usage increases sub-linearly with the feature dimension (sparse representation).
+- Single-round inference latency ≤ 10 ms;
+- The memory usage increases sub-linearly with the feature dimension (sparse representation).
+
 Baseline implementation:
-• OpenOLAFD (IJCAI’25) – A sparse active online learning framework, including
-– Proactive query strategy: Uncertainty + Diversity + Budget-Aware Buffer;
-– Feature expansion module: Elastic Sparse Projection + Online Dictionary Learning;
-• RSOL-SF (SDM’23) – Sparse Online Learning Based on Truncated Gradient and Robust Loss;
-• ORFF-VS (AAAI’22) – Online Random Feature Forest, supporting dynamic dimension mapping.
+- OpenOLAFD (IJCAI’25) – A sparse active online learning framework, including
+  - Proactive query strategy: Uncertainty + Diversity + Budget-Aware Buffer;
+  - Feature expansion module: Elastic Sparse Projection + Online Dictionary Learning;
+- RSOL-SF (SDM’23) – Sparse Online Learning Based on Truncated Gradient and Robust Loss;
+- ORFF-VS (AAAI’22) – Online Random Feature Forest, supporting dynamic dimension mapping.
+
 Evaluation indicators:
-• AUROC@τ, AUPRC@τ (averaged with time decay)
-• Label Efficiency = AUROC / (#queried labels)
-• Runtime & Peak Memory vs. d_max
+- AUROC@τ, AUPRC@τ (averaged with time decay)
+- Label Efficiency = AUROC / (#queried labels)
+- Runtime & Peak Memory vs. d_max
 ───────────────────────────────
-# Task-2 Online CUR Row-Sparse Matrix Sketching under Varying Dimensions (OCUR-VS)
+### Task-2 Online CUR Row-Sparse Matrix Sketching under Varying Dimensions (OCUR-VS)
 Given:
 • Stream matrix sequence {M_t ∈ ℝ^(n×d_t)}, where the column dimension d_t varies over time;
 • User-specified compression rank r and row sparsity s (at most s non-zero coefficients per row).
@@ -49,7 +54,7 @@ Relative reconstruction error = ∥M_t – CUR∥_F / ∥M_t∥_F
 • Achievement rate of row sparsity (≥ 95% of rows satisfying s-sparsity)
 • Update Throughput (rows/ms)
 ───────────────────────────────
-# Task-3 Utilitarian Online Regression from Open-World Soft Sensing (UORS)
+### Task-3 Utilitarian Online Regression from Open-World Soft Sensing (UORS)
 Given:
 • Multi-source soft sensor stream X_t = [x_t^(1), …, x_t^(M)], where any source may go offline or be newly added at any time;
 • The target variable y_t arrives with a delay only after the user submits a "utility query";
@@ -69,7 +74,7 @@ Evaluation indicators:
 • Sensor Robustness = AUROC (Fault Detection)
 • Model Update Latency
 ───────────────────────────────
-# Task-4 Online Deep Representation Learning with Evolving Feature Spaces (ODR-EFS)
+### Task-4 Online Deep Representation Learning with Evolving Feature Spaces (ODR-EFS)
 Given:
 • High-dimensional stream data X_t ∈ ℝ^(n_t×d_t), where d_t varies over time;
 • An optional semi-supervised signal (with weak labels for some samples).
@@ -89,7 +94,7 @@ Evaluation indicators:
 • Forgetting Measure = Accuracy@t – max_{τ≤t} Accuracy@τ
 • Feature Expansion Cost (FLOPs)
 ───────────────────────────────
-# Task-5 Online Random Feature Forest for Varying Feature Streams (ORFF-VF)
+### Task-5 Online Random Feature Forest for Varying Feature Streams (ORFF-VF)
 Given:
 • Streaming binary classification data (x_t, y_t) containing only partial feature observations;
 • Tree nodes and random features can be dynamically added or deleted in each round.
