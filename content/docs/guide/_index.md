@@ -6,6 +6,6 @@ sidebar:
 ---
 
 {{< cards >}}
-  {{< card url="models" title="Functions" icon="document-duplicate" >}}
+  {{< card url="functions" title="Functions" icon="document-duplicate" >}}
   {{< card url="tasks" title="Tasks" icon="adjustments-vertical" >}}
 {{< /cards >}}
