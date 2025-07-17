@@ -8,7 +8,7 @@ weight: 1
 
 You may install OpenMOA library by pip
 ```yaml
-pip install OpenMOA
+pip install openmoa
 ```
 
 
