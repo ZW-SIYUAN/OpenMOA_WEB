@@ -4,6 +4,30 @@ weight: 1
 ---
 
 ## Functions
+### prepare
+```yaml
+from openmoa.data import load_real, load_synthetic
+from openmoa.preprocess import datastream_select, open_scaler, elastic_projection, 
+from openmoa.model import (
+    SOADLearner,                       # IJCAI‘25
+    OCURSketch,                        # SDM‘24
+    UORSRegressor,                     # ICDM‘24
+    RSOLClassifier,                    # SDM‘23
+    ODREncoder,                        # TKDE‘23
+    ORFForest                          # AAAI‘22
+)
+```
+1. openmoa.data.load_real()
+Function: Load real data stream flow.
+Return: (X, y, feat_info)
+- X: Scipy.sparse. csr_matrix has one sample per row, with dimensions increasing over time;
+- y: Np.ndarray 0/1 label, where 1 indicates an exception;
+- Feat_info: dict records the timestamp of adding/deleting features.
+- Example:
+```yaml
+X, y, feat_info = load_elec(return_X_y=True)
+```
+
 - '''Dataset Loading (openmoa.dataset.*)'''
   - ```stream_loader(), ds = om.dataset.stream_loader('synthetic_open', n_samples=1e6, feature_pace=500) ```	Return a streaming dataset with an infinite iterator based on its name, and specify a feature drift strategy
   - ```file_stream(path, fmt='csv|jsonl|parquet'), ds = om.dataset.file_stream('s3://bucket/log.parquet')```	Read real-time append files from local files or S3/HDFS	
