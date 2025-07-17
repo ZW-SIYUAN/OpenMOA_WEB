@@ -18,7 +18,9 @@ from openmoa.model import (
 )
 ```
 1. openmoa.data.load_real()
+
 Function: Load real data stream flow.
+
 Return: (X, y, feat_info)
 - X: Scipy.sparse. csr_matrix has one sample per row, with dimensions increasing over time;
 - y: Np.ndarray 0/1 label, where 1 indicates an exception;
