@@ -7,6 +7,7 @@ weight: 1
 ### prepare
 ```yaml
 from openmoa.data import load_real, load_synthetic
+from openmoa.data.moa import generate_synthetic
 from openmoa.preprocess import datastream_select, open_scaler, elastic_projection, 
 from openmoa.model import (
     SOADLearner,                       # IJCAI‘25
@@ -27,8 +28,38 @@ Return: (X, y, feat_info)
 - Feat_info: dict records the timestamp of adding/deleting features.
 - Example:
 ```yaml
-X, y, feat_info = load_elec(return_X_y=True)
+X, y, feat_info = load_real(return_X_y=True)
 ```
+
+2. openmoa.data.load_synthetic()
+
+Function: Load synthetic data stream flow.
+
+Return: (X, y, feat_info)
+- X: Scipy.sparse. csr_matrix has one sample per row, with dimensions increasing over time;
+- y: Np.ndarray 0/1 label, where 1 indicates an exception;
+- Feat_info: dict records the timestamp of adding/deleting features.
+- Example:
+```yaml
+X, y, feat_info = load_synthetic(return_X_y=True)
+```
+
+3. openmoa.preprocess datastream_select()
+
+Function: Select the corresponding data stream feature space to process the original dataset.
+
+Return: (X, y, feat_info)
+- X: Scipy.sparse. csr_matrix has one sample per row, with dimensions increasing over time;
+- y: Np.ndarray 0/1 label, where 1 indicates an exception;
+- Feat_info: dict records the timestamp of adding/deleting features.
+- Example:
+```yaml
+X, y, feat_info = load_synthetic(return_X_y=True)
+```
+
+
+
+
 
 - '''Dataset Loading (openmoa.dataset.*)'''
   - ```stream_loader(), ds = om.dataset.stream_loader('synthetic_open', n_samples=1e6, feature_pace=500) ```	Return a streaming dataset with an infinite iterator based on its name, and specify a feature drift strategy
