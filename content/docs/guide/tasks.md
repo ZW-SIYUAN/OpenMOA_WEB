@@ -5,7 +5,7 @@ weight: 2
 
 OpenMOA provides reproducible baselines for the following open-environment streaming tasks where the feature space is non-stationary, growing, shrinking, or re-ordered over time.
 
-###Task	
+### Task	
 
 Streaming Anomaly Detection in Open Feature Spaces	
 Detect anomalies while feature set expands or contracts; maintain low false-positive rate under concept drift.	
@@ -26,7 +26,7 @@ Decide on-the-fly which new features to keep and how to update the model without
 
 
 
-###Planned Extensions
+### Planned Extensions
 Multilayer streaming graphs with dynamic node attributes.
 Higher-order joint tensor factorization under open modes.
 Federated OpenMOA: collaborative learning across institutions without sharing feature lists.
