@@ -1,5 +1,5 @@
 ---
-title: Models
+title: Functions
 weight: 1
 ---
 
