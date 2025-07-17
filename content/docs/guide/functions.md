@@ -3,7 +3,6 @@ title: Functions
 weight: 1
 ---
 
-## Functions
 ### prepare
 ```yaml
 from openmoa.data import load_real, load_synthetic
@@ -20,7 +19,7 @@ from openmoa.model import (
 ```
 
 ### data loading functions
-1. openmoa.data.load_real()
+**1. openmoa.data.load_real()**
 
 Function: Load real data stream flow.
 
@@ -33,7 +32,7 @@ Return: (X, y, feat_info)
 X, y, feat_info = load_real(real_dataset)
 ```
 
-2. openmoa.data.load_synthetic()
+**2. openmoa.data.load_synthetic()**
 
 Function: Load synthetic data stream flow.
 
@@ -47,7 +46,7 @@ X, y, feat_info = load_synthetic(stnthetic_dataset)
 ```
 
 ### data preprocessing functions
-3. openmoa.preprocess datastream_select()
+**3. openmoa.preprocess datastream_select()**
 
 Function: Select the corresponding data stream feature space to process the original dataset.
 
@@ -60,7 +59,7 @@ Return: (X, y, feat_info)
 X, y, feat_info = datastream_select(dataset)
 ```
 
-4. openmoa.preprocess.open_scaler()
+**4. openmoa.preprocess.open_scaler()**
    
 Function: Flow based robust normalizer (zero mean, unit variance), capable of incremental updates and automatically expanding mean/variance vectors as feature dimensions change.
 
@@ -73,7 +72,7 @@ for batch in stream:
 X_batch = scaler.partial_fit_transform(batch)
 ```
 
-5. openmoa.preprocess.elastic_projection()
+**5. openmoa.preprocess.elastic_projection()**
 
 Function: Elastic sparse mapping, when new features appear, the online learning projection matrix compresses the original high-dimensional space to a fixed k-dimension while retaining anomaly discriminative power.
 
@@ -87,7 +86,7 @@ Z_batch = proj.partial_fit_transform(X_batch)   # Z ∈ R^{n×128}
 ```
 
 ### model functions
-6. openmoa.model.SOADLearner()
+**6. openmoa.model.SOADLearner()**
 
 Function: Sparse active online anomaly detector, implementing IJCAI'25 paper core algorithm:
 - Integrate active selection (uncertainty+diversity+budget);
@@ -103,7 +102,7 @@ Forget_rate=0.01 # Anti concept drift
 )
 ```
 
-7. openmoa.model.OCURSketch
+**7. openmoa.model.OCURSketch()**
 
 Function: Online CUR row and column sketch, targeting SDM'24 ℓ 1, ∞ - MXed Norm CUR algorithm:
 - Row sparsity constraint and variable column dimension;
