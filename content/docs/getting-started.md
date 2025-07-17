@@ -26,22 +26,24 @@ from openmoa.eval import run
 ```
 
 1. create a streaming loader whose feature space grows/shrinks on-the-fly
-{{< highlight go "linenos=inline, hl_lines=3 6-8, style=emacs" >}}
+```yaml
 ds = stream_loader(name='synthetic_open',
                    n_samples=1_000_000,
                    feature_pace=500,   # new feature appears every 500 steps
                    anomaly_ratio=0.05)
-{{< /highlight >}}
+```
+
 2. plug in the online learner
-{{< highlight go "linenos=inline, hl_lines=3 6-8, style=emacs" >}}
+```yaml
 learner = SparseActiveOL(
     alpha=0.01,           # sparsity regularizer (ℓ1,∞ mixed norm, SDM'24)
     budget=50,            # active query budget
     window=1000           # sliding window size
 )
-{{< /highlight >}}
+```
+
 3. run & collect results
-{{< highlight go "linenos=inline, hl_lines=3 6-8, style=emacs" >}}
+```yaml
 run(
     stream=ds,
     preprocess=adaptive_standardize,
@@ -50,7 +52,7 @@ run(
     output=['csv', 'fig', 'animation'],
     checkpoint_every=10000
 )
-{{< /highlight >}}
+```
 
 ### Documentation Structure
 
