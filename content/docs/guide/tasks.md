@@ -82,7 +82,7 @@ In a smart city environmental monitoring system, sensor networks continuously co
 
 - Feature-Space Evolution:
   - $T_1$ Phase: Feature space $S_1 \subseteq \mathbb{R}^{d_1}$ (e.g.\ PM$_{2.5}$, temperature).
-  - $T_b$ Phase (Overlap): Feature space expands to $S_1 \times S_2 \subseteq \mathbb{R}^{d_1+d_2}$ (new NO$_2$ sensors added).
+  - $T_b$ Phase (Overlap): Feature space expands to $S_1 \times S_2 \subseteq \mathbb{R}^{d_1+d_2}$ (new NO₂ sensors added).
   - $T_2$ Phase: Only the new feature space $S_2 \subseteq \mathbb{R}^{d_2}$ remains (old sensors retired).
 
 - Objective: Learn a sequence of classifiers $f_t_{t=1}^{T}$ that minimizes the cumulative loss:
