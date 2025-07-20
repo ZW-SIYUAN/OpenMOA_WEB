@@ -41,10 +41,6 @@ $$min_{w_t}  Σ_{t=1}^T ℓ_t(w_t)   s.t.   ‖W‖_{1,∞} ≤ k$$
 - Closed-form PA update handles dynamic dimension alignment.
 - Online CUR decomposes the sliding-window weight matrix to actively retain the most informative instances, ensuring both efficiency and interpretability (original features retained or dropped en bloc).
 
-$$
-\max\left\{0,\; 1 - y_t(\mathbf{w}_t^\top \mathbf{x}_t)\right\}
-$$
-
 Given:
 - A stream data S = {Bt}t=1…T arriving in mini-batch form, where the dimension d_t of Bt ∈ ℝ^(n_t×d_t) grows open-endedly over time (allowing new features to suddenly appear and old features to silently disappear);
 - Each sample x_t ∈ Bt is only partially observable upon arrival (open-world partial observability);
