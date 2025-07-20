@@ -79,7 +79,7 @@ In a smart city environmental monitoring system, sensor networks continuously co
 
 ### (2) Mathematical Formulation
 - Data Stream
-\begin{itemize}
+$\begin{itemize}
   \item \textbf{Data Stream:} $\{(x_t, y_t)\}_{t=1}^{T}$, where $x_t \in \mathbb{R}^{d_t}$ is the feature vector at time step $t$ (its dimension $d_t$ changes over time), and $y_t \in \{1,2,3,4\}$ is the air-quality label.
 
   \item \textbf{Feature-Space Evolution:}
@@ -94,7 +94,7 @@ In a smart city environmental monitoring system, sensor networks continuously co
       \min_{\{f_t\}} \frac{1}{T}\sum_{t=1}^{T} \ell\!\bigl(y_t, f_t(x_t)\bigr),
     \]
     where $\ell$ is the cross-entropy loss, and each $f_t$ must adapt to the evolving feature space.
-\end{itemize}
+\end{itemize}$
 
 ### Planned Extensions
 Multilayer streaming graphs with dynamic node attributes.
