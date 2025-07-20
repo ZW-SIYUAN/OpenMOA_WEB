@@ -29,8 +29,8 @@ At each round t, output a sparse weight vector $w_t \in ℝ^{d_t}$ minimizing
 $$Regret_T = Σ_{t=1}^T ℓ_t(w_t)  +  λ‖W_t‖_{1,∞}$$
 
 where
-- ℓ_t is the hinge loss: max(0, 1 – y_t w_t·x_t).
-- ‖W_t‖_{1,∞} enforces row-wise sparsity (entire features pruned).
+- $ℓ_t$ is the hinge loss: $max(0, 1 – y_t w_t·x_t)$.
+- $‖W_t‖_{1,∞}$ enforces row-wise sparsity (entire features pruned).
 - Expected Influence: maximize prediction accuracy while keeping non-zero rows ≤ budget k (user-defined memory limit).
 
 ### (3) Loss Function & Optimization Target
