@@ -85,9 +85,30 @@ In a smart city environmental monitoring system, sensor networks continuously co
   - $T_b$ Phase (Overlap): Feature space expands to $S_1 \times S_2 \subseteq \mathbb{R}^{d_1+d_2}$ (new NO₂ sensors added).
   - $T_2$ Phase: Only the new feature space $S_2 \subseteq \mathbb{R}^{d_2}$ remains (old sensors retired).
 
-- Objective: Learn a sequence of classifiers $f_t_{t=1}^{T}$ that minimizes the cumulative loss:
-  $$\min_{\{f_t\}} \frac{1}{T}\sum_{t=1}^{T} \ell\!\bigl(y_t, f_t(x_t)\bigr)$$,
+- Objective: Learn a sequence of classifiers $f_t_t^T$ that minimizes the cumulative loss:
+  $$\min_{\{f_t\}} \frac{1}{T}\sum_{t=1}^{T} \ell\bigl(y_t, f_t(x_t)\bigr)$$,
   where $\ell$ is the cross-entropy loss, and each $f_t$ must adapt to the evolving feature space.
+
+### (3) Baselines
+Method 1: OLD3S
+
+Core Idea: Use Variational Autoencoders (VAEs) to learn a shared latent representation between old and new feature spaces, and dynamically adjust model depth.
+
+- Latent Space Alignment (during $T_b$)
+
+Map $S_1$ and $S_2$ to a shared latent space $Z\subseteq\mathbb{R}^{z}$ via VAEs, minimizing:
+$\mathcal{L}_{\text{rec}} = \bigl\|x_{S_1}-\mathrm{Dec}_{2\to 1}\!\bigl(z_{S_2}\bigr)\bigr\|^{2}\+\\mathrm{KL}\!\Bigl(Q\!\bigl(z_{S_1}\!\mid x_{S_1}\bigr)\big\|\; Q\bigl(z_{S_2}\mid x_{S_2}\bigr)\Bigr)$
+
+Predict via a weighted combination of the old and new classifiers:
+
+$\hat{y}_{t} = p\cdot f_{S_1}\bigl(\tilde{x}_{S_1}\bigr) + (1-p)\cdot f_{S_2}\bigl(x_{S_2}\bigr)$,
+
+where $p$ decays as the new model $f_{S_2}$ improves (exponential experts).
+
+- Online Ensemble (during $T_2$) 
+
+- Adaptive Depth
+
 
 ### Planned Extensions
 Multilayer streaming graphs with dynamic node attributes.
