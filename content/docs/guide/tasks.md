@@ -5,7 +5,7 @@ weight: 2
 
 List of Benchmark Tasks
 
-## Task-1 Efficient & Interpretable Online Learning in Open, High-Dimensional Feature Spaces (SOOFS)
+## Task-1 Efficient & Interpretable Online Learning in Open, High-Dimensional Feature Spaces (SOOFS & RSOL)
 ### (1) Real-World Scenario
 Imagine a city-scale disaster-monitoring system that continuously ingests data from crowd-sensing smartphones, IoT sensors, and social-media feeds.
 - Devices come and go: a new iPhone introduces a fresh sensor modality; an old Android goes offline, removing its features; a viral hashtag spikes and vanishes within minutes.
@@ -26,11 +26,11 @@ Objective
 
 At each round t, output a sparse weight vector $w_t \in ℝ^{d_t}$ minimizing
 
-$$Regret_T = Σ_{t=1}^T ℓ_t(w_t)  +  λ‖W_t‖_{1,∞}$$
+$$Regret_T = Σ_{t=1}^T ℓ_t(w_t)  +  λ‖W_t‖_{1,∞} or ‖W_t‖_{1,2} $$
 
 where
 - $ℓ_t$ is the hinge loss: $\max(0,\; 1 - y_t(\mathbf{w}_t^\top \mathbf{x}_t))$.
-- $‖W_t‖_{1,∞}$ enforces row-wise sparsity (entire features pruned).
+- $‖W_t‖_{1,∞} or ‖W_t‖_{1,2}$ enforces row-wise sparsity (entire features pruned).
 - Expected Influence: maximize prediction accuracy while keeping non-zero rows ≤ budget k (user-defined memory limit).
 
 ### (3) Loss Function & Optimization Target
@@ -41,57 +41,33 @@ $$min_{w_t}  Σ_{t=1}^T ℓ_t(w_t)   s.t.   ‖W‖_{1,∞} ≤ k$$
 - Closed-form PA update handles dynamic dimension alignment.
 - Online CUR decomposes the sliding-window weight matrix to actively retain the most informative instances, ensuring both efficiency and interpretability (original features retained or dropped en bloc).
 
-Given:
-- A stream data S = {Bt}t=1…T arriving in mini-batch form, where the dimension d_t of Bt ∈ ℝ^(n_t×d_t) grows open-endedly over time (allowing new features to suddenly appear and old features to silently disappear);
-- Each sample x_t ∈ Bt is only partially observable upon arrival (open-world partial observability);
-- User-specified "annotation budget" k (up to k labels queried per round).
-
-Goal:
-At any given time τ, output a real-time updated anomaly detector f_τ, ensuring it
-(1) Maximize the Area Under the Receiver Operating Characteristic Curve (AUROC) under the condition of using only ≤ k active labels;
-(2) When expanding/contracting in the feature space, the model can continue to update without restarting.
-
-Constraints:
-- Single-round inference latency ≤ 10 ms;
-- The memory usage increases sub-linearly with the feature dimension (sparse representation).
-
-Baseline implementation:
-- OpenOLAFD (IJCAI’25) – A sparse active online learning framework, including
-  - Proactive query strategy: Uncertainty + Diversity + Budget-Aware Buffer;
-  - Feature expansion module: Elastic Sparse Projection + Online Dictionary Learning;
-- RSOL-SF (SDM’23) – Sparse Online Learning Based on Truncated Gradient and Robust Loss;
-- ORFF-VS (AAAI’22) – Online Random Feature Forest, supporting dynamic dimension mapping.
-
-Evaluation indicators:
-- AUROC@τ, AUPRC@τ (averaged with time decay)
-- Label Efficiency = AUROC / (#queried labels)
-- Runtime & Peak Memory vs. d_max
-
 ───────────────────────────────
 
-### Task-2 Online CUR Row-Sparse Matrix Sketching under Varying Dimensions (OCUR-VS)
+## Task-2 Efficient & Interpretable Online Learning in Open, Unknown Categories appear at any time Feature Spaces
+## (1) Problem Statement
+In feature-evolving and class-open online environments (e.g., semiconductor wafer inspection lines), sensors may be added or removed over time, and previously unseen defect types can emerge at any moment. OWSS seeks an online learner that, at each round t, receives a sample
 
-Given:
-- Stream matrix sequence {M_t ∈ ℝ^(n×d_t)}, where the column dimension d_t varies over time;
-- User-specified compression rank r and row sparsity s (at most s non-zero coefficients per row).
+$$(x_t, y_t), x_t \in ℝ^{d_t}, y_t ∈ Y_k ∪ Y_u$$,
 
-Goal:
-Outputting the CUR decomposition (C_t, U_t, R_t) in real-time such that
-∥M_t – C_t U_t R_t∥_F ≤ ε and the rows of R_t satisfy the ℓ1,∞-mixed norm sparsity constraint.
+where dₜ can increase (new sensors) or decrease (obsolete sensors), and Yᵤ denotes unknown classes. The learner must decide on the fly whether to output a class label or to abstain.
 
-Constraints:
-- The complexity of a single update is O(nnz(M_t) + r^2 d_t);
-- Re-decomposing the historical matrix is not allowed.
+## (2) Objective
+Minimize the cumulative loss over a horizon T:
 
-Baseline implementation:
-- ℓ1,∞-OCUR (SDM’24) – Online Block Coordinate Descent + Row Soft Thresholding;
-- ORFF-CUR – using ORFF as a random column/row sampler;
-- Greedy-CUR – a classic leverage sampling baseline.
+$$\min_{h_1,\dots,h_T}\;
+\sum_{t=1}^{T}
+\Bigl[\ell\bigl(y_t,h_t(x_t)\bigr)\cdot\mathbb{I}\bigl(h_t\ \text{predicts}\bigr)+c(x_t)\cdot\mathbb{I}\bigl(h_t\ \text{abstains}\bigr)\Bigr]$$,
 
-Evaluation indicators:
-Relative reconstruction error = ∥M_t – CUR∥_F / ∥M_t∥_F
-- Achievement rate of row sparsity (≥ 95% of rows satisfying s-sparsity)
-- Update Throughput (rows/ms)
+subject to
+- Universal representation: zₜ = φ(xₜ) ∈ ℝ^{k} with fixed k, updated via bipartite graph–GCN.
+- Abstention rule: r(zₜ) ≥ 0 ⇒ predict; r(zₜ) < 0 ⇒ abstain.
+- Online update: parameters (Θ, {fᵢ}, r) are updated once per sample without revisiting prior data.
+
+## (3) Baselines
+• closed-world online: OCO, OSLMF
+• offline outlier detection: ECOD, LUNAR
+• graph offline: GraSSNet
+• open-world with pre-training: ORCA
 
 ───────────────────────────────
 
