@@ -49,7 +49,7 @@ In feature-evolving and class-open online environments (e.g., semiconductor wafe
 
 $$(x_t, y_t), x_t \in ℝ^{d_t}, y_t ∈ Y_k ∪ Y_u$$,
 
-where dₜ can increase (new sensors) or decrease (obsolete sensors), and Yᵤ denotes unknown classes. The learner must decide on the fly whether to output a class label or to abstain.
+where $d_t$ can increase (new sensors) or decrease (obsolete sensors), and $Y_u$ denotes unknown classes. The learner must decide on the fly whether to output a class label or to abstain.
 
 ## (2) Objective
 Minimize the cumulative loss over a horizon T:
@@ -59,15 +59,15 @@ $$\min_{h_1,\dots,h_T}\;
 \Bigl[\ell\bigl(y_t,h_t(x_t)\bigr)\cdot\mathbb{I}\bigl(h_t\ \text{predicts}\bigr)+c(x_t)\cdot\mathbb{I}\bigl(h_t\ \text{abstains}\bigr)\Bigr]$$,
 
 subject to
-- Universal representation: zₜ = φ(xₜ) ∈ ℝ^{k} with fixed k, updated via bipartite graph–GCN.
-- Abstention rule: r(zₜ) ≥ 0 ⇒ predict; r(zₜ) < 0 ⇒ abstain.
-- Online update: parameters (Θ, {fᵢ}, r) are updated once per sample without revisiting prior data.
+- Universal representation: $$z_t = φ(x_t) ∈ ℝ^{k}$$ with fixed $$k$$, updated via bipartite graph–GCN.
+- Abstention rule: $$r(z_t) ≥ 0 ⇒ predict$$; $$r(z_t) < 0 ⇒ abstain$$.
+- Online update: parameters $$(Θ, {f_i}, r)$$ are updated once per sample without revisiting prior data.
 
 ## (3) Baselines
-• closed-world online: OCO, OSLMF
-• offline outlier detection: ECOD, LUNAR
-• graph offline: GraSSNet
-• open-world with pre-training: ORCA
+- closed-world online: OCO, OSLMF
+- offline outlier detection: ECOD, LUNAR
+- graph offline: GraSSNet
+- open-world with pre-training: ORCA
 
 ───────────────────────────────
 
