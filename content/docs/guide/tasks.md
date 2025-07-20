@@ -17,9 +17,11 @@ Input
 - Streaming instances: { (xₜ, yₜ) }ₜ₌₁^∞
   - xₜ ∈ ℝ^{dₜ} where dₜ can grow or shrink at each round.
   - yₜ ∈ {+1, –1} (binary label, e.g., “danger” vs “safe”).
+
 Knowledge Constraints
 - Only one pass over the data (online).
 - Model size must stay sub-linear in the total number of ever-seen features.
+
 Objective
 At each round t, output a sparse weight vector wₜ ∈ ℝ^{dₜ} minimizing
 Regret_T = Σ_{t=1}^T ℓ_t(wₜ)  +  λ‖W_t‖_{1,∞}
