@@ -97,7 +97,9 @@ Core Idea: Use Variational Autoencoders (VAEs) to learn a shared latent represen
 - Latent Space Alignment (during $T_b$)
 
 Map $S_1$ and $S_2$ to a shared latent space $Z\subseteq\mathbb{R}^{z}$ via VAEs, minimizing:
-$\mathcal{L}_{\text{rec}} = \bigl\|x_{S_1}-\mathrm{Dec}_{2\to 1}\!\bigl(z_{S_2}\bigr)\bigr\|^{2}\+\\mathrm{KL}\!\Bigl(Q\!\bigl(z_{S_1}\!\mid x_{S_1}\bigr)\big\|\; Q\bigl(z_{S_2}\mid x_{S_2}\bigr)\Bigr)$
+$\mathcal{L}_{\text{rec}} = \bigl\|x_{S_1}-\mathrm{Dec}_{2\to 1}\bigl(z_{S_2}\bigr)\bigr\|^{2}\+\\mathrm{KL}\Bigl(Q\!\bigl(z_{S_1}\!\mid x_{S_1}\bigr)\big\|\; Q\bigl(z_{S_2}\mid x_{S_2}\bigr)\Bigr)$
+
+- Online Ensemble (during $T_2$)
 
 Predict via a weighted combination of the old and new classifiers:
 
@@ -105,10 +107,10 @@ $\hat{y}_{t} = p\cdot f_{S_1}\bigl(\tilde{x}_{S_1}\bigr) + (1-p)\cdot f_{S_2}\bi
 
 where $p$ decays as the new model $f_{S_2}$ improves (exponential experts).
 
-- Online Ensemble (during $T_2$) 
 
 - Adaptive Depth
 
+Use Hedge Backpropagation (HBP) to dynamically select optimal model depth $l^*$ balancing convergence speed and expressiveness.
 
 ### Planned Extensions
 Multilayer streaming graphs with dynamic node attributes.
