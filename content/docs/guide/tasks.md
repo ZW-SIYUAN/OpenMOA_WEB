@@ -15,8 +15,8 @@ Imagine a city-scale disaster-monitoring system that continuously ingests data f
 ### (2) Formal Task Definition
 Input
 - Streaming instances: ${(x_t, y_t) \mid t \in [T]}$
-  - $$xₜ ∈ ℝ^{dₜ}$$ where $dₜ$ can grow or shrink at each round.
-  - $$yₜ ∈ {+1, –1}$$ (binary label, e.g., “danger” vs “safe”).
+  - $x_t \in ℝ^{d_t}$ where $d_t$ can grow or shrink at each round.
+  - $y_t \in {+1, –1}$ (binary label, e.g., “danger” vs “safe”).
 
 Knowledge Constraints
 - Only one pass over the data (online).
@@ -24,16 +24,20 @@ Knowledge Constraints
 
 Objective
 
-At each round t, output a sparse weight vector wₜ ∈ ℝ^{dₜ} minimizing
-$$Regret_T = Σ_{t=1}^T ℓ_t(wₜ)  +  λ‖W_t‖_{1,∞}$$
+At each round t, output a sparse weight vector $w_t \in ℝ^{d_t}$ minimizing
+
+$$Regret_T = Σ_{t=1}^T ℓ_t(w_t)  +  λ‖W_t‖_{1,∞}$$
+
 where
-- ℓ_t is the hinge loss: max(0, 1 – yₜ wₜ·xₜ).
+- ℓ_t is the hinge loss: max(0, 1 – y_t w_t·x_t).
 - ‖W_t‖_{1,∞} enforces row-wise sparsity (entire features pruned).
 - Expected Influence: maximize prediction accuracy while keeping non-zero rows ≤ budget k (user-defined memory limit).
 
 ### (3) Loss Function & Optimization Target
 Minimize sub-linear regret over T rounds:
-min_{wₜ}  Σ_{t=1}^T ℓ_t(wₜ)   s.t.   ‖W‖_{1,∞} ≤ k
+
+$$min_{w_t}  Σ_{t=1}^T ℓ_t(w_t)   s.t.   ‖W‖_{1,∞} ≤ k$$
+
 - Closed-form PA update handles dynamic dimension alignment.
 - Online CUR decomposes the sliding-window weight matrix to actively retain the most informative instances, ensuring both efficiency and interpretability (original features retained or dropped en bloc).
 
