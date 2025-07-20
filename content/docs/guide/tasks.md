@@ -78,23 +78,16 @@ In a smart city environmental monitoring system, sensor networks continuously co
 - Old sensors fail or are decommissioned, causing old features to vanish. The goal is to train an online classifier that predicts air quality levels (e.g., good/moderate/poor/hazardous) in real time, while adapting to the evolving feature space (new features emerging, old features disappearing) without retraining from scratch.
 
 ### (2) Mathematical Formulation
-- Data Stream
-$\begin{itemize}
-  \item \textbf{Data Stream:} $\{(x_t, y_t)\}_{t=1}^{T}$, where $x_t \in \mathbb{R}^{d_t}$ is the feature vector at time step $t$ (its dimension $d_t$ changes over time), and $y_t \in \{1,2,3,4\}$ is the air-quality label.
+- Data Stream $\{(x_t, y_t)\}_{t=1}^{T}$, where $x_t \in \mathbb{R}^{d_t}$ is the feature vector at time step $t$ (its dimension $d_t$ changes over time), and $y_t \in \{1,2,3,4\}$ is the air-quality label.
 
-  \item \textbf{Feature-Space Evolution:}
-    \begin{itemize}
-      \item \textbf{$T_1$ Phase:} Feature space $S_1 \subseteq \mathbb{R}^{d_1}$ (e.g.\ PM$_{2.5}$, temperature).
-      \item \textbf{$T_b$ Phase (Overlap):} Feature space expands to $S_1 \times S_2 \subseteq \mathbb{R}^{d_1+d_2}$ (new NO$_2$ sensors added).
-      \item \textbf{$T_2$ Phase:} Only the new feature space $S_2 \subseteq \mathbb{R}^{d_2}$ remains (old sensors retired).
-    \end{itemize}
+- Feature-Space Evolution:
+  - {$T_1$ Phase:} Feature space $S_1 \subseteq \mathbb{R}^{d_1}$ (e.g.\ PM$_{2.5}$, temperature).
+  - {$T_b$ Phase (Overlap):} Feature space expands to $S_1 \times S_2 \subseteq \mathbb{R}^{d_1+d_2}$ (new NO$_2$ sensors added).
+  - {$T_2$ Phase:} Only the new feature space $S_2 \subseteq \mathbb{R}^{d_2}$ remains (old sensors retired).
 
-  \item \textbf{Objective:} Learn a sequence of classifiers $\{f_t\}_{t=1}^{T}$ that minimizes the cumulative loss:
-    \[
-      \min_{\{f_t\}} \frac{1}{T}\sum_{t=1}^{T} \ell\!\bigl(y_t, f_t(x_t)\bigr),
-    \]
-    where $\ell$ is the cross-entropy loss, and each $f_t$ must adapt to the evolving feature space.
-\end{itemize}$
+- Objective: Learn a sequence of classifiers $\{f_t\}_{t=1}^{T}$ that minimizes the cumulative loss:
+  $$\min_{\{f_t\}} \frac{1}{T}\sum_{t=1}^{T} \ell\!\bigl(y_t, f_t(x_t)\bigr)$$,
+  where $\ell$ is the cross-entropy loss, and each $f_t$ must adapt to the evolving feature space.
 
 ### Planned Extensions
 Multilayer streaming graphs with dynamic node attributes.
