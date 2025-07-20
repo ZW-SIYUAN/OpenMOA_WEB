@@ -14,7 +14,7 @@ Imagine a city-scale disaster-monitoring system that continuously ingests data f
 
 ### (2) Formal Task Definition
 Input
-- Streaming instances: ${(x_t, y_t)\midt\in[T]}$
+- Streaming instances: ${(x_t, y_t) \mid t \in [T]}$
   - $$xₜ ∈ ℝ^{dₜ}$$ where $dₜ$ can grow or shrink at each round.
   - $$yₜ ∈ {+1, –1}$$ (binary label, e.g., “danger” vs “safe”).
 
