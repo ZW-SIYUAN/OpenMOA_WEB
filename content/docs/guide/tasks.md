@@ -3,11 +3,36 @@ title: Tasks
 weight: 2
 ---
 
-OpenMOA provides reproducible baselines for the following open-environment streaming tasks where the feature space is non-stationary, growing, shrinking, or re-ordered over time.
+List of Benchmark Tasks
 
-### Task	
+## Task-1 Efficient & Interpretable Online Learning in Open, High-Dimensional Feature Spaces (SOOFS)
+### (1) Real-World Scenario
+Imagine a city-scale disaster-monitoring system that continuously ingests data from crowd-sensing smartphones, IoT sensors, and social-media feeds.
+- Devices come and go: a new iPhone introduces a fresh sensor modality; an old Android goes offline, removing its features; a viral hashtag spikes and vanishes within minutes.
+- The feature space is open (arbitrarily evolving) and often high-dimensional (millions of hashtags, sensor channels, or user contexts).
+- The system must predict in real time (e.g., “Is this region in danger?”) while keeping the model small enough to fit in edge-device memory and transparent enough for emergency managers to audit.
 
-### Task-1 Streaming Anomaly Detection under Open Feature Spaces (SOAD)
+### (2) Formal Task Definition
+Input
+- Streaming instances: { (xₜ, yₜ) }ₜ₌₁^∞
+  - xₜ ∈ ℝ^{dₜ} where dₜ can grow or shrink at each round.
+  - yₜ ∈ {+1, –1} (binary label, e.g., “danger” vs “safe”).
+Knowledge Constraints
+- Only one pass over the data (online).
+- Model size must stay sub-linear in the total number of ever-seen features.
+Objective
+At each round t, output a sparse weight vector wₜ ∈ ℝ^{dₜ} minimizing
+Regret_T = Σ_{t=1}^T ℓ_t(wₜ)  +  λ‖W_t‖_{1,∞}
+where
+- ℓ_t is the hinge loss: max(0, 1 – yₜ wₜ·xₜ).
+- ‖W_t‖_{1,∞} enforces row-wise sparsity (entire features pruned).
+- Expected Influence: maximize prediction accuracy while keeping non-zero rows ≤ budget k (user-defined memory limit).
+
+### (3) Loss Function & Optimization Target
+Minimize sub-linear regret over T rounds:
+min_{wₜ}  Σ_{t=1}^T ℓ_t(wₜ)   s.t.   ‖W‖_{1,∞} ≤ k
+- Closed-form PA update handles dynamic dimension alignment.
+- Online CUR decomposes the sliding-window weight matrix to actively retain the most informative instances, ensuring both efficiency and interpretability (original features retained or dropped en bloc).
 
 Given:
 - A stream data S = {Bt}t=1…T arriving in mini-batch form, where the dimension d_t of Bt ∈ ℝ^(n_t×d_t) grows open-endedly over time (allowing new features to suddenly appear and old features to silently disappear);
