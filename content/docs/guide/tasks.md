@@ -23,6 +23,7 @@ Knowledge Constraints
 - Model size must stay sub-linear in the total number of ever-seen features.
 
 Objective
+
 At each round t, output a sparse weight vector wₜ ∈ ℝ^{dₜ} minimizing
 Regret_T = Σ_{t=1}^T ℓ_t(wₜ)  +  λ‖W_t‖_{1,∞}
 where
