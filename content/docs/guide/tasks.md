@@ -58,9 +58,10 @@ $$\min_{h_1,\dots,h_T}\sum_{t=1}^{T}\Bigl[\ell\bigl(y_t,h_t(x_t)\bigr)\cdot\math
 
 subject to
 - Universal representation: $z_t=\varphi(x_t) \in R^k$ with fixed $$k$$, updated via bipartite graph–GCN.
-- Abstention rule: $r(z_t)\geq 0 $ ⇒ predict; $r(z_t) \lt 0$ ⇒ abstain.
+- Abstention rule: $r(z_t)\geq 0 $ ⇒ predict; $r(z_t) \lt 0$ ⇒ abstain.
 - Online update: parameters $(Θ, {f_i}, r)$ are updated once per sample without revisiting prior data.
 
+Abstention rule: $r(z_t)\geq 0 $ ⇒ predict
 $r(z_t)\geq 0 $
 
 ## (3) Baselines
