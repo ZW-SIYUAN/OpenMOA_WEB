@@ -25,7 +25,7 @@ Knowledge Constraints
 Objective
 
 At each round t, output a sparse weight vector wₜ ∈ ℝ^{dₜ} minimizing
-Regret_T = Σ_{t=1}^T ℓ_t(wₜ)  +  λ‖W_t‖_{1,∞}
+$$Regret_T = Σ_{t=1}^T ℓ_t(wₜ)  +  λ‖W_t‖_{1,∞}$$
 where
 - ℓ_t is the hinge loss: max(0, 1 – yₜ wₜ·xₜ).
 - ‖W_t‖_{1,∞} enforces row-wise sparsity (entire features pruned).
