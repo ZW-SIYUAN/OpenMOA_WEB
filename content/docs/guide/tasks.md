@@ -43,15 +43,15 @@ $$min_{w_t}  Σ_{t=1}^T ℓ_t(w_t)   s.t.   ‖W‖_{1,∞} ≤ k$$
 
 ───────────────────────────────
 
-## Task-2 Efficient & Interpretable Online Learning in Open, Unknown Categories appear at any time Feature Spaces
-## (1) Problem Statement
+## Task-2 Efficient & Interpretable Online Learning in Open, Unknown Categories appear at any time Feature Spaces (OWSS)
+### (1) Problem Statement
 In feature-evolving and class-open online environments (e.g., semiconductor wafer inspection lines), sensors may be added or removed over time, and previously unseen defect types can emerge at any moment. OWSS seeks an online learner that, at each round t, receives a sample
 
 $$(x_t, y_t), x_t \in ℝ^{d_t}, y_t ∈ Y_k ∪ Y_u$$,
 
 where $d_t$ can increase (new sensors) or decrease (obsolete sensors), and $Y_u$ denotes unknown classes. The learner must decide on the fly whether to output a class label or to abstain.
 
-## (2) Objective
+### (2) Objective
 Minimize the cumulative loss over a horizon T:
 
 $$\min_{h_1,\dots,h_T}\sum_{t=1}^{T}\Bigl[\ell\bigl(y_t,h_t(x_t)\bigr)\cdot\mathbb{I}\bigl(h_t\ \text{predicts}\bigr)+c(x_t)\cdot\mathbb{I}\bigl(h_t\ \text{abstains}\bigr)\Bigr]$$,
@@ -62,7 +62,7 @@ subject to
 - abstain: $r(z_t) \lt 0$
 - Online update: parameters $(Θ, {f_i}, r)$ are updated once per sample without revisiting prior data.
 
-## (3) Baselines
+### (3) Baselines
 - closed-world online: OCO, OSLMF
 - offline outlier detection: ECOD, LUNAR
 - graph offline: GraSSNet
@@ -70,102 +70,31 @@ subject to
 
 ───────────────────────────────
 
-### Task-3 Utilitarian Online Regression from Open-World Soft Sensing (UORS)
+## Task-3 Oline Learning in Open Feature Space (OLD3S & ORF3V)
 
-Given:
-- Multi-source soft sensor stream X_t = [x_t^(1), …, x_t^(M)], where any source may go offline or be newly added at any time;
-- The target variable y_t arrives with a delay only after the user submits a "utility query";
-- The global utility function U(ŷ, y) is specified online by the user (e.g., energy consumption-accuracy tradeoff).
+### (1) Real-world Problem
+In a smart city environmental monitoring system, sensor networks continuously collect air quality data (e.g., PM2.5, CO₂, temperature, humidity). Over time:
+- New sensors (e.g., NO₂ sensors) are deployed, introducing new features;
+- Old sensors fail or are decommissioned, causing old features to vanish. The goal is to train an online classifier that predicts air quality levels (e.g., good/moderate/poor/hazardous) in real time, while adapting to the evolving feature space (new features emerging, old features disappearing) without retraining from scratch.
 
-Goal:
-Maintain a regressor h_t to ensure cumulative utility
-Maximize ∑_{τ=1}^t U(h_τ(x_τ), y_τ), and ensure the model is robust to heterogeneous sensor drifts.
+### (2) Mathematical Formulation
+- Data Stream
+\begin{itemize}
+  \item \textbf{Data Stream:} $\{(x_t, y_t)\}_{t=1}^{T}$, where $x_t \in \mathbb{R}^{d_t}$ is the feature vector at time step $t$ (its dimension $d_t$ changes over time), and $y_t \in \{1,2,3,4\}$ is the air-quality label.
 
-Constraints:
-- The sensor dimension can be extended to 10^4, but only m_t ≪ M active sources are observed in each round;
-- Support utility function hot swapping without retraining.
+  \item \textbf{Feature-Space Evolution:}
+    \begin{itemize}
+      \item \textbf{$T_1$ Phase:} Feature space $S_1 \subseteq \mathbb{R}^{d_1}$ (e.g.\ PM$_{2.5}$, temperature).
+      \item \textbf{$T_b$ Phase (Overlap):} Feature space expands to $S_1 \times S_2 \subseteq \mathbb{R}^{d_1+d_2}$ (new NO$_2$ sensors added).
+      \item \textbf{$T_2$ Phase:} Only the new feature space $S_2 \subseteq \mathbb{R}^{d_2}$ remains (old sensors retired).
+    \end{itemize}
 
-Baseline implementation:
-- UOL-SS (ICDM’24) – Online Mirror Descent + Dynamic Weight Sharing + Sparse Group Lasso;
-- ORFF-Util – a weighted version of Random Feature Forests, supporting online utility re-weighting;
-- Ridge-Restart – Classical Ridge Regression + Periodic Restart Baseline.
-
-Evaluation indicators:
-- Cumulative Utility Regret vs. offline oracle
-- Sensor Robustness = AUROC (Fault Detection)
-- Model Update Latency
-
-───────────────────────────────
-
-### Task-4 Online Deep Representation Learning with Evolving Feature Spaces (ODR-EFS)
-
-Given:
-- High-dimensional stream data X_t ∈ ℝ^(n_t×d_t), where d_t varies over time;
-- An optional semi-supervised signal (with weak labels for some samples).
-
-Goal:
-Joint learning
-(1) Dynamic feature encoder ϕ_t: ℝ^{d_t} → ℝ^k, where k is fixed;
-(2) The online classification/regression head ψ_t ensures that the accuracy of downstream tasks remains unchanged while keeping the model capacity under control.
-
-Constraints:
-- The number of encoder parameters grows sublinearly with d_t;
-- Support catastrophic forgetting inhibition.
-
-Baseline implementation:
-- DV-RNN (TKDE’23) – Deep Variational Recurrent Neural Network + Scalable Feature Gating;
-- ORFF-Encoder – Single-layer ORFF as a lightweight encoder;
-- MLP-Reinit – Reinitialize the fully connected layer every time the dimension is expanded.
-
-Evaluation indicators:
-- Downstream task Accuracy@t
-- Forgetting Measure = Accuracy@t – max_{τ≤t} Accuracy@τ
-- Feature Expansion Cost (FLOPs)
-
-───────────────────────────────
-
-### Task-5 Online Random Feature Forest for Varying Feature Streams (ORFF-VF)
-
-Given:
-- Streaming binary classification data (x_t, y_t) containing only partial feature observations;
-- Tree nodes and random features can be dynamically added or deleted in each round.
-
-Goal:
-Maintain the error of the ORFF classifier f_t to be ≤ ε, and ensure the model size is ≤ B MB.
-Constraints:
-- Tree depth ≤ 8, minimum sample size for leaf nodes = 10;
-- Single-sample prediction latency ≤ 1 ms.
-
-Baseline implementation:
-- ORFF-VS (AAAI’22) – Original algorithm + Adaptive feature pool;
-- ORFF-Budget – a pruned version with budget constraints;
-- Hoeffding-Tree – a classic stream decision tree baseline.
-
-Evaluation indicators:
-- Error Rate@t
-- Model Size (MB)
-- Feature Utilization Ratio = Number of active features / Total number of observed features
-
-### Task	
-
-Streaming Anomaly Detection in Open Feature Spaces	
-Detect anomalies while feature set expands or contracts; maintain low false-positive rate under concept drift.	
-• Sparse Active Online Learning (IJCAI'25, default)
-
-
-Fast Online CUR Decomposition under Varying Features	
-Reconstruct and track the latent low-rank structure of a data stream when column (feature) set keeps changing.	
-• ℓ1,∞-Mixed-Norm CUR (SDM'24)
-
-Utilitarian Online Learning from Soft Sensing Streams	
-Make real-time decisions when the incoming features are unreliable (soft) and the feature space is open.	
-• Utilitarian OLLA (ICDM'24)
-
-Dynamic Feature Selection & Model Adaptation	
-Decide on-the-fly which new features to keep and how to update the model without full retraining.	
-• Online Group LASSO wrapper
-
-
+  \item \textbf{Objective:} Learn a sequence of classifiers $\{f_t\}_{t=1}^{T}$ that minimizes the cumulative loss:
+    \[
+      \min_{\{f_t\}} \frac{1}{T}\sum_{t=1}^{T} \ell\!\bigl(y_t, f_t(x_t)\bigr),
+    \]
+    where $\ell$ is the cross-entropy loss, and each $f_t$ must adapt to the evolving feature space.
+\end{itemize}
 
 ### Planned Extensions
 Multilayer streaming graphs with dynamic node attributes.
