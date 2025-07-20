@@ -61,6 +61,8 @@ subject to
 - Abstention rule: $r(z_t) ≥ 0 ⇒ predict$; $r(z_t) < 0 ⇒ abstain$.
 - Online update: parameters $(Θ, {f_i}, r)$ are updated once per sample without revisiting prior data.
 
+$z_t$
+
 ## (3) Baselines
 - closed-world online: OCO, OSLMF
 - offline outlier detection: ECOD, LUNAR
