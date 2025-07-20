@@ -54,8 +54,7 @@ where $d_t$ can increase (new sensors) or decrease (obsolete sensors), and $Y_u$
 ## (2) Objective
 Minimize the cumulative loss over a horizon T:
 
-$$\min_{h_1,\dots,h_T}\sum_{t=1}^{T}
-\Bigl[\ell\bigl(y_t,h_t(x_t)\bigr)\cdot\mathbb{I}\bigl(h_t\ \text{predicts}\bigr)+c(x_t)\cdot\mathbb{I}\bigl(h_t\ \text{abstains}\bigr)\Bigr]$$,
+$$\min_{h_1,\dots,h_T}\sum_{t=1}^{T}\Bigl[\ell\bigl(y_t,h_t(x_t)\bigr)\cdot\mathbb{I}\bigl(h_t\ \text{predicts}\bigr)+c(x_t)\cdot\mathbb{I}\bigl(h_t\ \text{abstains}\bigr)\Bigr]$$,
 
 subject to
 - Universal representation: $$z_t = φ(x_t) ∈ ℝ^{k}$$ with fixed $$k$$, updated via bipartite graph–GCN.
