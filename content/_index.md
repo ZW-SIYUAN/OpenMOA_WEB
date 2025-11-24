@@ -11,10 +11,10 @@ sections:
   - block: hero
     content:
       title: OpenMOA ( Open-Environmental Massive Online Analysis )
-      text: A Python library for Open-Environmental Online Learning Task and Streaming Data Process 🎉
+      text: A Python library for Utilitarian Online Learning Task and Streaming Data Process 🎉
       secondary_action:
         text: Star OpenMOA
-        url: docs/
+        url: https://github.com/ZW-SIYUAN/OpenMOA
         icon: star
       primary_action:
         text: Get Started
