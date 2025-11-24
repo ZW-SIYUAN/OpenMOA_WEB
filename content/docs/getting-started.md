@@ -43,7 +43,6 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 ```
 
 4. Install OpenMOA
-5. 
 ```yaml
 pip install openmoa
 ```
@@ -51,7 +50,7 @@ pip install openmoa
 To verify your installation, run:
 
 ```yaml
-python -c "import capymoa; print(capymoa.__version__)"
+python -c "import openmoa; print(oepnmoa.__version__)"
 ```
 
 ### The First Example
