@@ -1,5 +1,5 @@
 ---
-title: Functions
+title: Tutorials
 weight: 1
 ---
 
@@ -56,13 +56,14 @@ results = prequential_evaluation(
     learner=fesl_learner,
     max_instances=10000,
     window_size=100,
-    progress_bar=True  # 开启进度条
+    progress_bar=True  # Enable the progress bar
 )
 
 # Print final results
 print(f"Ensemble Method: {fesl_learner.ensemble_method}")
 print(f"\nFinal Accuracy: {results['cumulative'].accuracy():.2f}%")
 print(f"Kappa: {results['cumulative'].kappa():.4f}")
+
 ```
 
 ### data loading functions
