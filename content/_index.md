@@ -18,7 +18,7 @@ sections:
         icon: star
       primary_action:
         text: Get Started
-        url: https://openmoa.net/docs/getting-started/
+        url: "getting-started"
         icon: rocket-launch
     design:
       spacing:

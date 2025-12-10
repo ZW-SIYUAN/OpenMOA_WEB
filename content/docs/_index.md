@@ -16,9 +16,9 @@ This site is a tutorial of the OpenMOA Package. For the full documentation on ho
 {{< /cards >}}
 
 {{< cards >}}
-  {{< card url="Tutorials" title="Tutorials" icon="document-text" subtitle="These tutorials will show you how to get started with the OpenMOA library." >}}
+  {{< card url="/docs/guide/tutorials" title="Tutorials" icon="document-text" subtitle="These tutorials will show you how to get started with the OpenMOA library." >}}
 {{< /cards >}}
 
 {{< cards >}}
-  {{< card url="API Reference" title="API Reference" icon="document-text" subtitle="Welcome to the openmoa API reference. This documentation is automatically generated from the source code and provides detailed information on the classes and functions available in openmoa." >}}
+  {{< card url="/docs/guide/api-reference" title="API Reference" icon="document-text" subtitle="Welcome to the openmoa API reference. This documentation is automatically generated from the source code and provides detailed information on the classes and functions available in openmoa." >}}
 {{< /cards >}}
